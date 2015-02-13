@@ -1,4 +1,4 @@
-# Nagios_Demo
+# Getting Started with Nagios!
 Getting started with Nagios infrastructure monitoring tool repository!
 This repository contains a step by step guide for Nagios tool installation including the source files.
 The scripts folder contains everything you need for the installation both for Ubuntu and CentOS.
