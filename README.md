@@ -1,6 +1,6 @@
 # Getting Started with Nagios!
-Getting started with Nagios infrastructure monitoring tool repository!
-This repository contains a step by step guide for Nagios tool installation including the source files.
+A user guid to get started with Nagios core and some useful plugins to manage for infrastructure!
+This repository contains a step by step guide for Nagios core and plugin installation including the source files.
 The scripts folder contains everything you need for the installation both for Ubuntu and CentOS.
 You can find my presentation slides [here](http://www.slideshare.net/PanagiotisGarefalaki/storage-managment-using-nagios).
 
