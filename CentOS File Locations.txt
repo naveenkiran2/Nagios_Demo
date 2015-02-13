@@ -1,0 +1,24 @@
+Review File Locations
+There are a number of files that you should review, both their location and their content.  It is important that you review these because if you change a file location you may have to modify a number of additional files that depend on that location.
+
+Main Configuration File
+The main configuration file for nagios is /etc/nagios/nagios.cfg.  This is the file that contains paths to the other configuration files.
+
+Configuration Directory
+The directory /etc/nagios/objects contains much of the information needed for modify objects.
+
+commands.cfg  contacts.cfg  localhost.cfg  printer.cfg  switch.cfg  templates.cfg  timeperiods.cfg  windows.cfg
+
+Review the contents of each of these files.  If you change the name of any you will need to make changes to at least the nagios.cfg, possibly others.
+
+Log File
+An archives directory is created in /var/log/nagios and the main log is here:
+/var/log/nagios/nagios.log
+
+Resource File
+/etc/nagios/resource.cfg
+
+Plugins and CGIs
+The scripts for plugins and the cgi files that provide data for the web interface are found here:
+
+/usr/lib/nagios

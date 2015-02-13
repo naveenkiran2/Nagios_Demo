@@ -1,0 +1,51 @@
+The purpose of this is to be able to place the nrpe daemon on a remote Linux machine and be able to
+ monitor specific internal aspects of the server that you would not normally be able to get access to.
+You will need to become root and create the user nagios with a password.
+
+# useradd nagios
+
+# passwd nagios
+
+On the remote host you must install the plugins for Nagios.
+
+#apt-get install nagios-plugins
+#apt-get install nagios-nrpe-plugin
+#apt-get install nagios-nrpe-server
+
+Edit the /etc/nagios/nrpe.cfg
+Change your allowed_hosts address to reflect the nagios monitoring server.
+
+allowed_hosts=192.168.5.180
+
+This IP Address must match the IP Address of your Nagios monitoring server.
+
+The basic plugins that are running for you initially are these listed below.
+
+command[check_users]=/usr/lib/nagios/plugins/check_users -w 5 -c 10
+command[check_load]=/usr/lib/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
+command[check_hda1]=/usr/lib/nagios/plugins/check_disk -w 20 -c 10 -p /dev/hda1
+command[check_zombie_procs]=/usr/lib/nagios/plugins/check_procs -w 5 -c 10 -s Z
+command[check_total_procs]=/usr/lib/nagios/plugins/check_procs -w 150 -c 200
+
+Change ownership on the /etc/nagios/nrpe.cfg file so that nagios is able to read the file.
+
+chown nagios /etc/nagios/nrpe*
+
+Set up the Firewall
+The ufw firewall, Uncomplicated Firewall, is a little tricky.  In the example the remote server being monitored is 192.168.5.178 and the nagios server that is doing the monitoring is 192.168.5.180.
+
+# ufw allow proto tcp from 192.168.5.180 to 192.168.5.178 port 5666
+Rules updated
+# ufw allow proto tcp from 192.168.5.178 to 192.168.5.180
+Rules updated
+# ufw enable
+Firewall started and enabled on system startup
+# ufw status
+Status: loaded
+
+To                         Action  From
+–                         ——  —-
+192.168.5.180/tcp          ALLOW   192.168.5.178/tcp
+192.168.5.178 5666/tcp     ALLOW   192.168.5.180
+
+This completes the basic configuration of the host that you will monitor.

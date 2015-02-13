@@ -1,0 +1,45 @@
+A)
+Locate Nagios configuration files. /usr/local/nagios/etc/objects
+Open localhost.cfg (Sudo access)
+Add the lines:
+define service{
+        use                            	 	local-service         ; Name of service template to use
+        host_name                       	localhost
+        service_description             	DISK_TEST
+        check_command                   	check_local_disk!70%!20%!/dev/xvda1
+        }
+Validate: sudo /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+
+Restart Nagios: /etc/init.d/nagios restart
+
+B)
+Copy the given plugin “check_dir.sh” to nagios plugin directory:/usr/local/nagios/libexec
+Modify the commands.cfg file:
+define command{
+        command_name    	check_dir
+        command_line    	$USER1$/check_dir $ARG1$
+        }
+Modify the localhost.cfg file:
+define service{
+        use                             	local-service
+        host_name                       	localhost
+        service_description             	CHECK_LOG
+        check_command                   	check_dir!9999
+        }
+
+C)
+/usr/lib/nagios/plugins/check_nrpe -H 139.91.70.76
+/usr/lib/nagios/plugins/check_nrpe -H 139.91.70.76 -c check_nfs
+
+D)
+We want to react to above-threshold growth of files.
+Copy myhandler.sh to libexec/eventhandler
+Change permission to nagios user!
+Add the following line to our command:
+event_handler my_handler!$SERVICESTATE$ $STATETYPE$ $SERVICEATTEMPT$
+
+Finally add the command:
+define command{ 
+		command_name my_eventhandler 
+		command_line $USER1$/eventhandlers/myhandler  $ARG1$ 
+}

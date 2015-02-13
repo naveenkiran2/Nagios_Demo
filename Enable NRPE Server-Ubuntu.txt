@@ -1,0 +1,62 @@
+One you have the remote host set up you will need to set up the Nagios monitoring server. 
+This tutorial will show you how to set up the Ubuntu 8.10 server so that it can monitor the remote Linux host. 
+First install the nrpe plugin.
+
+# apt-get install nagios-nrpe-plugin
+
+Enable a Command Definition
+The command to enable the nrpe has already been set by default so you will not have to do anything.
+
+Create the Host Files
+In order to monitor remote Linux boxes you will need to set up your template called “linux-box” and then you will need to create a host entry for each remote box you will monitor.
+
+define host{
+name                    linux-box
+use                     generic-host
+check_period            24x7
+check_interval          5
+retry_interval          1
+max_check_attempts      10
+check_command           check-host-alive
+notification_period     24?7
+notification_interval   30
+contact_groups          admins
+register                0
+}
+define host{
+use                     linux-box
+host_name               dg
+alias                   Base
+address                 192.168.5.178
+}
+
+Configure Services
+Each service you want to monitor on the remote host must be entered individually.  Here is an example of monitoring CPU load on the host “dg”.
+
+define service{
+use                     generic-service
+host_name               dg
+service_description     CPU Load
+check_command           check_nrpe!check_load
+}
+
+Once this is complete you must restart your nagios server with:
+
+sudo /etc/init.d/nagios3 restart
+
+and the web server so you can see the results.
+
+/etc/init.d/apache2 restart
+If you get errors correct them.
+
+Now you can check your connection by running the following command and using the IP Address of the remote box you want to monitor.  You should get the return “NRPE v2.8.1” if all is working.
+
+# /usr/lib/nagios/plugins/check_nrpe -H 192.168.5.178
+NRPE v2.12
+
+If you get this return then you have communication between the Nagios monitoring server and the remote host.
+
+Now run a command from the command line.  Here you will be checking the load on the remote host and you should get the information you are looking for.
+
+# /usr/lib/nagios/plugins/check_nrpe -H 192.168.5.178 -c check_load
+OK – load average: 0.09, 0.07, 0.07|load1=0.090;15.000;30.000;0; load5=0.070;10.000;25.000;0; load15=0.070;5.000;20.000;0;

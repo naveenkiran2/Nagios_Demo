@@ -1,0 +1,24 @@
+----------VM1--------------
+IP: 109.231.73.109
+Username:ubuntu
+Initial Password:jNknTjMhBpFpW7P3
+
+----------VM2--------------
+IP: 109.231.73.110
+Username:ubuntu
+Initial Password:IgdU2haCyphijQbb
+
+----------VM3--------------
+IP: 109.231.79.122
+Username:ubuntu
+Initial Password:XBCM8us55cEQr2R
+
+----------VM4--------------
+IP: 109.231.79.123
+Username:ubuntu
+Initial Password:AfztcbrV5sDbJ29D
+
+----------VM5--------------
+IP: 109.231.79.125
+Username:ubuntu
+Initial Password:q5ifPNxtWAjbHcLe
