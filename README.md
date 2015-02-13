@@ -5,7 +5,7 @@ The scripts folder contains everything you need for the installation both for Ub
 You can find my presentation slides [here](http://www.slideshare.net/PanagiotisGarefalaki/storage-managment-using-nagios).
 
 
-## Installation instructions (Tested on Ubuntu -- Copied from the instructions file)
+##### Installation instructions (Tested on Ubuntu -- Copied from the instructions file)
 ###-----------Nagios Core-------------
 ###### A)Dependencies:
   * sudo apt-get install build-essential
